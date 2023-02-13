@@ -1,6 +1,8 @@
+import LestSummarizeForm from "@/app/components/LestSummarizeForm";
+
 export default function Home() {
     return (
-        <main className="flex flex-col justify-center items-center mx-auto max-w-6xl align-middle h-screen mt-[-10%]">
+        <main className="flex flex-col justify-center items-center mx-auto max-w-6xl align-middle">
             <img src="wikipedia_svg_logo.svg"
                  className="w-1/4"
                  alt="wikipedia logo"/>
@@ -9,17 +11,10 @@ export default function Home() {
                     <span className="text-6xl font-semibold">Wiki</span>
                     {" "} article with AI</p>
             </div>
-            <p className="p-8 text-xl">Copy and paste any {" "}
+            <p className="p-8 text-xl">Type any term to be search in {" "}
                 <span className="font-semibold">Wikipedia</span>
-                {" "}article link below.</p>
-            <div className="w-full px-10">
-                <input type="text" className="p-5 border border-gray-400 border-2 rounded w-full" />
-            </div>
-            <button className="p-5 font-semibold bg-[#f8f9fa]
-                               border border-gray-400 border-2 rounded w-1/3
-                               mt-5 transition-all duration-300 hover:bg-gray-300 hover:border-gray-700">
-                {"Let's"} summarize
-            </button>
+                {" "}Page below.</p>
+            <LestSummarizeForm />
         </main>
     )
 }

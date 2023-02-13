@@ -3,7 +3,7 @@ import {SocialIcon} from "react-social-icons";
 
 export default function Footer() {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-between fixed bottom-0 py-5 text-xl max-w-6xl w-full">
+        <footer className="flex flex-col md:flex-row items-center justify-between fixed bottom-0 py-5 text-xl max-w-6xl w-full">
             <h1 className="font-semibold text-lg">
                 Powered by {" "}
                 <Link href="https://openai.com/"
@@ -36,6 +36,6 @@ export default function Footer() {
                             className="transition-transform duration-500 hover:scale-110"
                 />
             </div>
-        </div>
+        </footer>
     );
 };

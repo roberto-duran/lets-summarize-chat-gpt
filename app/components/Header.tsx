@@ -5,7 +5,7 @@ export default function Header() {
                 <span>The</span> {" "}
                 <span className="text-3xl font-semibold">WIKIPEDIA</span>{" "}
                 <span>summarizer</span></h1>
-            <img src="wikipedia_svg_logo.svg"
+            <img src="other_logo.svg"
                  className="w-12"
                  alt="wikipedia logo"/>
         </div>
