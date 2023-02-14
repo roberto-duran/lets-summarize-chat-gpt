@@ -1,8 +1,9 @@
 import LestSummarizeForm from "@/app/components/LestSummarizeForm";
+import React from "react";
 
 export default function Home() {
     return (
-        <main className="flex flex-col justify-center items-center mx-auto max-w-6xl align-middle">
+        <main className="flex flex-col justify-center items-center mx-auto max-w-6xl align-middle w-full">
             <img src="wikipedia_svg_logo.svg"
                  className="w-1/4"
                  alt="wikipedia logo"/>
@@ -15,6 +16,7 @@ export default function Home() {
                 <span className="font-semibold">Wikipedia</span>
                 {" "}Page below.</p>
             <LestSummarizeForm />
+
         </main>
     )
 }

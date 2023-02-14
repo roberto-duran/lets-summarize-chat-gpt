@@ -1,5 +1,5 @@
-import { parse } from "node-html-parser";
 import { OpenAIStream } from "../../lib/OpenAIStream";
+import {ValidationMessages} from "@/lib/baseConst";
 
 export const config = {
     runtime: "edge",
@@ -30,6 +30,11 @@ export default async function handler(req: Request) {
 
         const key = Object.keys(result.query.pages)[0];
         const extract = result.query.pages[key].extract;
+
+        if(key === '-1' || !extract) {
+            throw new Error(ValidationMessages.errors.NONE_ARTICLE_FOUND);
+        }
+
         const prompt = `I want you to act like a news article summarizer. 
         I will input text from a news article and your job is to convert it into a useful summary of a few sentences. 
         Do not repeat sentences and make sure all sentences are clear and show it as points: "${extract}"`;
@@ -50,6 +55,6 @@ export default async function handler(req: Request) {
         return new Response(stream);
     } catch (e: any) {
         console.log({ e });
-        return new Response(e, { status: 500 });
+        return new Response(e, { status: 500, statusText: e.message });
     }
 }

@@ -1,6 +1,6 @@
 export const ValidationMessages = {
     errors: {
-        empty: "Please enter a link",
-        invalid_link: "Please enter a valid Wikipedia link"
+        EMPTY_SEARCH_TERM: "Uh oh! It seems like you didn't give me anything to work with. Please input some text so I can show you what I can do!",
+        NONE_ARTICLE_FOUND: "Whoopsie! It seems like the article you're looking for has gone missing. Did you try looking under the couch?"
     }
 }
