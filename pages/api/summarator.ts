@@ -1,4 +1,4 @@
-import { OpenAIStream } from "../../lib/OpenAIStream";
+import { OpenAIStream } from "@/lib/OpenAIStream";
 import {ValidationMessages} from "@/lib/baseConst";
 
 export const config = {
@@ -18,7 +18,7 @@ export default async function handler(req: Request) {
         return new Response("No prompt in the request", { status: 500 });
     }
 
-    const url = `http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=${searchTerm}`
+    const url = `http://en.wikipedia.org/w/api.php?format=json&action=query&prop=info|extracts&inprop=url&exlimit=max&explaintext&exintro&titles=${searchTerm}`
     try {
 
         const response = await fetch(url, {
@@ -40,7 +40,7 @@ export default async function handler(req: Request) {
         Do not repeat sentences and make sure all sentences are clear and show it as points: "${extract}"`;
 
         const payload = {
-            model: "text-davinci-003",
+            model: "text-curie-001",
             prompt,
             temperature: 0.5,
             top_p: 1,
@@ -54,7 +54,6 @@ export default async function handler(req: Request) {
         const stream = await OpenAIStream(payload);
         return new Response(stream);
     } catch (e: any) {
-        console.log({ e });
         return new Response(e, { status: 500, statusText: e.message });
     }
 }

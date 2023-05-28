@@ -1,4 +1,5 @@
 'use client';
+
 import React, {useState} from "react";
 import {SpinnerIcon} from "@/shared-components/Icons";
 import {ValidationMessages} from "@/lib/baseConst";
@@ -10,10 +11,14 @@ export default function LestSummarizeForm() {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [summary, setSummary] = useState<string>("");
 
-    const summarizeOpenAI = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const summarizeOpenAI = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                      | React.KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (!isValidUrl(searchTerm)) return;
+
         setSummary("");
+        setLoading(true);
+
         const response = await fetch("/api/summarator", {
             method: "POST",
             headers: {
@@ -24,6 +29,7 @@ export default function LestSummarizeForm() {
 
         if (!response.ok) {
             toast.error(response.statusText);
+            setLoading(false);
             return;
         }
 
@@ -41,8 +47,16 @@ export default function LestSummarizeForm() {
             done = doneReading;
             const chunkValue = decoder.decode(value);
             setSummary((prev) => prev + chunkValue);
+            scrollToBottom();
         }
         setLoading(false);
+    };
+
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.documentElement.clientHeight,
+            behavior: 'smooth',
+        });
     };
 
     const cleanSearchTerm = (term: string) => {
@@ -67,19 +81,29 @@ export default function LestSummarizeForm() {
         <>
             <form className="flex flex-col items-center w-full px-10">
                 <input type="text"
+                       disabled={isLoading}
                        onChange={(e) => setSearchTerm(e.target.value)}
+                       onKeyUp={(e) => {
+                            if (e.key === "Enter" && !isLoading) {
+                                summarizeOpenAI(e);
+                            }
+                       }}
                        id="summarizeInput"
                        className="p-5 border border-gray-400 border-2 rounded w-full"/>
                 <button onClick={summarizeOpenAI}
+                        disabled={isLoading}
                         className="p-5 font-semibold bg-[#f8f9fa]
-                                       border border-gray-400 border-2 rounded w-1/3
-                                       mt-5 transition-all duration-300 hover:bg-gray-300 hover:border-gray-700">
+                                   border border-gray-400 border-2 rounded w-1/3
+                                   mt-5 transition-all duration-300
+                                   duration-[500ms,800ms] hover:bg-gray-300
+                                   hover:border-gray-700 disabled:opacity-60">
 
-                    {(isLoading) ? (<div className="text-center">
-                        <div role="status w-8 h-8 mr-2">
-                            <SpinnerIcon/>
-                        </div>
-                    </div>) : (<span>{"Let's"} summarize</span>)}
+                    {(isLoading) ? (
+                            <div className="flex items-center justify-center m-[10px]">
+                                <div className="h-5 w-5 border-t-transparent border-solid animate-spin rounded-full border-black border-4"></div>
+                                <div className="ml-2"> Loading... </div>
+                            </div>
+                    ) : (<span>{"Let's"} summarize</span>)}
                 </button>
             </form>
             {summary && <SummaryList summary={summary} />}
