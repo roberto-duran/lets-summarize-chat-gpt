@@ -7,9 +7,9 @@ export default function Home() {
             <img src="wikipedia_svg_logo.svg"
                  className="w-1/4"
                  alt="wikipedia logo"/>
-            <div className="text-4xl font-semibold space-y-2">
+            <div className="text-2xl sm:text-4xl font-semibold space-y-2 text-center sm:text-left px-2">
                 <p>Summarize any {" "}
-                    <span className="text-6xl font-semibold">Wiki</span>
+                    <span className="text-4xl sm:text-6xl font-semibold">Wiki</span>
                     {" "} article with AI</p>
             </div>
             <p className="p-8 text-xl">Type any term to be search in {" "}

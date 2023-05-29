@@ -93,7 +93,7 @@ export default function LestSummarizeForm() {
                 <button onClick={summarizeOpenAI}
                         disabled={isLoading}
                         className="p-5 font-semibold bg-[#f8f9fa]
-                                   border border-gray-400 border-2 rounded w-1/3
+                                   border border-gray-400 border-2 rounded w-full sm:w-1/3
                                    mt-5 transition-all duration-300
                                    duration-[500ms,800ms] hover:bg-gray-300
                                    hover:border-gray-700 disabled:opacity-60">
